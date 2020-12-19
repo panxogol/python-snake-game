@@ -74,3 +74,10 @@ class Snake:
         if self.tail[0].heading() not in [0, 180] and self.moved:
             self.head.setheading(RIGHT)
             self.moved = False
+
+    def resetSnake(self):
+        for segment in self.tail:
+            segment.hideturtle()
+        self.tail.clear()
+        self.create_tail()
+        self.head = self.tail[0]
