@@ -1,14 +1,17 @@
 # ---IMPORTS---
-from turtle import Screen, Turtle
+from turtle import Screen
 from scoreboard import Scoreboard
 from time import sleep
 from snake import Snake
 from food import Food
 from constants import *
+from border import Border
 
-# ---CONSTANTS---
+# ---GLOBAL---
+paused = False
 
 
+# ---FUNCTIONS---
 def main():
     # TODO 1: Configure screen
     screen = Screen()
@@ -16,17 +19,9 @@ def main():
     screen.bgcolor(SCREEN_BACKGROUND_COLOR)
     screen.tracer(0)
 
-    border = Turtle()
-    border.color("white")
-    border.speed("fastest")
-    border.hideturtle()
-    border.penup()
-    border.goto(280, 280)
-    border.pendown()
-    border.goto(-280, 280)
-    border.goto(-280, -280)
-    border.goto(280, -280)
-    border.goto(280, 280)
+    # Add borders
+    border = Border()
+    border.createBorder()
 
     # TODO 2: Configure initial snake
     snake = Snake()
@@ -39,9 +34,19 @@ def main():
     screen.onkey(snake.down, "Down")
     screen.onkey(snake.left, "Left")
     screen.onkey(snake.right, "Right")
-    game_is_on = True
 
+    #global paused
+
+    #def unpause():
+    #    global paused
+    #    paused = not paused
+
+    #screen.onkey(unpause, "p")
+
+    game_is_on = True
     while game_is_on:
+        #while paused:
+        #    sleep(0.2)
         screen.update()
         sleep(SLEEP_TIME)
         snake.move()
@@ -77,7 +82,6 @@ def main():
                 scoreboard.resetHighestScore()
                 snake.resetSnake()
 
-    # Stop the screen from exit
     screen.exitonclick()
 
 
